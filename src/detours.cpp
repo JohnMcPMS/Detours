@@ -1437,7 +1437,7 @@ static PDETOUR_TRAMPOLINE detour_alloc_trampoline(PBYTE pbTarget)
     // We need to allocate a new region.
 
     // Round pbTarget down to 64KB block.
-    pbTarget = pbTarget - (PtrToUlong(pbTarget) & 0xffff);
+    pbTarget = pbTarget - (ULONG)((ULONG_PTR)pbTarget & 0xffff);
 
     PVOID pbNewlyAllocated =
         detour_alloc_trampoline_allocate_new(pbTarget, pLo, pHi);
