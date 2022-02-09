@@ -1395,6 +1395,17 @@ PVOID WINAPI DetourAllocateRegionWithinJumpBounds(_In_ LPCVOID pbTarget,
     return pbNewlyAllocated;
 }
 
+BOOL WINAPI DetourIsFunctionImported(_In_ PBYTE pbCode,
+                                     _In_ PBYTE pbAddress)
+{
+    if (detour_is_imported(pbCode, pbAddress))
+    {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 static PDETOUR_TRAMPOLINE detour_alloc_trampoline(PBYTE pbTarget)
 {
     // We have to place trampolines within +/- 2GB of target.
