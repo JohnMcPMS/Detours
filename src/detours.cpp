@@ -1443,7 +1443,7 @@ static PDETOUR_TRAMPOLINE detour_alloc_trampoline(PBYTE pbTarget)
     // We need to allocate a new region.
 
     // Round pbTarget down to 64KB block.
-    // /RTC RuntimeChecks breaks PtrToUlong.
+    // /RTCc RuntimeChecks breaks PtrToUlong.
     pbTarget = pbTarget - (ULONG)((ULONG_PTR)pbTarget & 0xffff);
 
     PVOID pbNewlyAllocated =
