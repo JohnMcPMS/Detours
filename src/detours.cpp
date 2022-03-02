@@ -1398,12 +1398,7 @@ PVOID WINAPI DetourAllocateRegionWithinJumpBounds(_In_ LPCVOID pbTarget,
 BOOL WINAPI DetourIsFunctionImported(_In_ PBYTE pbCode,
                                      _In_ PBYTE pbAddress)
 {
-    if (detour_is_imported(pbCode, pbAddress))
-    {
-        return TRUE;
-    }
-
-    return FALSE;
+    return detour_is_imported(pbCode, pbAddress);
 }
 
 static PDETOUR_TRAMPOLINE detour_alloc_trampoline(PBYTE pbTarget)
@@ -1448,6 +1443,7 @@ static PDETOUR_TRAMPOLINE detour_alloc_trampoline(PBYTE pbTarget)
     // We need to allocate a new region.
 
     // Round pbTarget down to 64KB block.
+    // /RTC RuntimeChecks breaks PtrToUlong.
     pbTarget = pbTarget - (ULONG)((ULONG_PTR)pbTarget & 0xffff);
 
     PVOID pbNewlyAllocated =
